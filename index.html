@@ -1,0 +1,2524 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>My What If? | Allenhouse</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --primary:#173f7a;
+    --secondary:#f4a51c;
+    --accent:#e85d3f;
+    --dark:#183153;
+    --text:#344054;
+    --white:#fff;
+    --light:#f4f7fb;
+    --green:#36a269;
+    --shadow:0 15px 45px rgba(24,49,83,.12);
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+        radial-gradient(circle at 10% 10%,rgba(244,165,28,.16),transparent 25%),
+        radial-gradient(circle at 90% 20%,rgba(23,63,122,.12),transparent 25%),
+        #f6f9fc;
+    color:var(--text);
+    min-height:100vh;
+}
+
+button,
+textarea,
+input{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+    border:0;
+}
+
+.app{
+    width:100%;
+    max-width:1100px;
+    margin:auto;
+    padding:18px;
+}
+
+/* HEADER */
+
+.header{
+    background:rgba(255,255,255,.95);
+    border-radius:22px;
+    padding:14px 20px;
+    box-shadow:var(--shadow);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    position:sticky;
+    top:10px;
+    z-index:20;
+    backdrop-filter:blur(12px);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo{
+    width:48px;
+    height:48px;
+    border-radius:14px;
+    background:linear-gradient(135deg,var(--primary),#2865ad);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    font-weight:900;
+}
+
+.brand-text strong{
+    display:block;
+    color:var(--primary);
+    font-size:17px;
+}
+
+.brand-text span{
+    font-size:12px;
+    color:#718096;
+}
+
+.progress-wrap{
+    width:210px;
+}
+
+.progress-label{
+    display:flex;
+    justify-content:space-between;
+    font-size:11px;
+    margin-bottom:5px;
+    color:#718096;
+}
+
+.progress{
+    height:7px;
+    background:#e9eef5;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    width:25%;
+    background:linear-gradient(90deg,var(--secondary),var(--accent));
+    border-radius:20px;
+    transition:.4s ease;
+}
+
+/* SCREENS */
+
+.screen{
+    display:none;
+    margin-top:25px;
+    animation:fadeIn .4s ease;
+}
+
+.screen.active{
+    display:block;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* HERO */
+
+.hero{
+    background:linear-gradient(135deg,#173f7a,#285fa4);
+    color:white;
+    border-radius:30px;
+    padding:42px 30px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+}
+
+.eyebrow{
+    display:inline-block;
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.2);
+    padding:7px 14px;
+    border-radius:30px;
+    font-size:12px;
+    margin-bottom:15px;
+}
+
+.hero h1{
+    font-size:clamp(28px,6vw,50px);
+    line-height:1.08;
+    margin-bottom:13px;
+}
+
+.hero p{
+    font-size:17px;
+    opacity:.92;
+    max-width:650px;
+    margin:auto;
+    line-height:1.6;
+}
+
+/* CARD */
+
+.card{
+    background:white;
+    border-radius:25px;
+    padding:30px;
+    box-shadow:var(--shadow);
+    margin-top:20px;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.section-title h2{
+    color:var(--dark);
+    font-size:clamp(22px,4vw,32px);
+    margin-bottom:8px;
+}
+
+.section-title p{
+    color:#718096;
+    font-size:14px;
+}
+
+/* OBJECT GRID */
+
+.object-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.object{
+    background:#f8fafc;
+    border:2px solid #edf1f6;
+    border-radius:20px;
+    padding:20px 10px;
+    text-align:center;
+    transition:.25s ease;
+    min-height:145px;
+}
+
+.object:hover{
+    transform:translateY(-5px);
+    border-color:var(--secondary);
+    box-shadow:0 10px 25px rgba(244,165,28,.15);
+}
+
+.object.selected{
+    border-color:var(--secondary);
+    background:#fff8e8;
+    transform:translateY(-4px);
+}
+
+.object-icon{
+    font-size:46px;
+    margin-bottom:12px;
+}
+
+.object-name{
+    font-weight:800;
+    color:var(--dark);
+}
+
+/* OTHER OBJECT INPUT */
+
+.other-object-box{
+    display:none;
+    margin-top:18px;
+    animation:fadeIn .3s ease;
+}
+
+.other-object-box.show{
+    display:block;
+}
+
+.other-object-box label{
+    display:block;
+    font-weight:800;
+    color:var(--dark);
+    margin-bottom:8px;
+}
+
+.other-object-box input{
+    width:100%;
+    border:2px solid #e5eaf1;
+    border-radius:15px;
+    padding:14px;
+    font-size:15px;
+    outline:none;
+}
+
+.other-object-box input:focus{
+    border-color:var(--primary);
+}
+
+/* PROMPTS */
+
+.prompt-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+}
+
+.prompt{
+    padding:20px 15px;
+    background:#f8fafc;
+    border:2px solid #edf1f6;
+    border-radius:18px;
+    text-align:center;
+    transition:.2s;
+}
+
+.prompt:hover,
+.prompt.selected{
+    border-color:var(--accent);
+    background:#fff4ef;
+    transform:translateY(-3px);
+}
+
+.prompt-icon{
+    font-size:28px;
+    margin-bottom:9px;
+}
+
+.prompt strong{
+    display:block;
+    color:var(--dark);
+    font-size:14px;
+}
+
+/* FORM */
+
+.form-group{
+    margin-top:22px;
+}
+
+label{
+    display:block;
+    font-weight:800;
+    color:var(--dark);
+    margin-bottom:9px;
+}
+
+textarea,
+input{
+    width:100%;
+    border:2px solid #e5eaf1;
+    border-radius:16px;
+    padding:15px;
+    font-size:15px;
+    outline:none;
+    resize:vertical;
+    transition:.2s;
+    background:#fbfcfe;
+}
+
+textarea{
+    min-height:130px;
+}
+
+textarea:focus,
+input:focus{
+    border-color:var(--primary);
+    background:white;
+}
+
+/* RECORD */
+
+.record-area{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-top:15px;
+    flex-wrap:wrap;
+}
+
+.record-btn{
+    background:#fff0ee;
+    color:#c94731;
+    border:2px solid #ffd7d0;
+    padding:12px 18px;
+    border-radius:14px;
+    font-weight:800;
+}
+
+.record-btn.recording{
+    background:#c94731;
+    color:white;
+    animation:pulse 1.2s infinite;
+}
+
+@keyframes pulse{
+    50%{
+        box-shadow:0 0 0 9px rgba(201,71,49,.12);
+    }
+}
+
+.record-status{
+    font-size:13px;
+    color:#718096;
+}
+
+/* BUTTONS */
+
+.actions{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    margin-top:28px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    min-height:52px;
+    padding:0 25px;
+    border-radius:15px;
+    font-size:15px;
+    font-weight:800;
+    transition:.2s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.btn-primary{
+    color:white;
+    background:linear-gradient(135deg,var(--primary),#2865ad);
+    box-shadow:0 8px 20px rgba(23,63,122,.22);
+}
+
+.btn-gold{
+    color:#493100;
+    background:linear-gradient(135deg,#ffc95c,#f4a51c);
+    box-shadow:0 8px 20px rgba(244,165,28,.2);
+}
+
+.btn-light{
+    background:#eef3f8;
+    color:var(--dark);
+}
+
+.btn-danger{
+    background:#fff0ee;
+    color:#c94731;
+}
+
+/* BACK BUTTON */
+
+.top-back{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    background:#eef3f8;
+    color:var(--dark);
+    padding:9px 14px;
+    border-radius:12px;
+    font-weight:800;
+    font-size:13px;
+    margin-bottom:18px;
+}
+
+/* INSPIRATION */
+
+.inspiration{
+    margin-top:30px;
+}
+
+.inspiration h3{
+    text-align:center;
+    color:var(--dark);
+    margin-bottom:15px;
+}
+
+.inspiration-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.inspiration-card{
+    border-radius:20px;
+    overflow:hidden;
+    background:#fff;
+    border:1px solid #edf1f6;
+}
+
+.student-image{
+    height:190px;
+    background:linear-gradient(135deg,#dfeafa,#fff0cf);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:60px;
+}
+
+.inspiration-card-content{
+    padding:15px;
+}
+
+.inspiration-card strong{
+    color:var(--dark);
+    display:block;
+    margin-bottom:5px;
+}
+
+.inspiration-card p{
+    font-size:13px;
+    line-height:1.5;
+    color:#718096;
+}
+
+/* IDEA CARD */
+
+.idea-card{
+    background:linear-gradient(145deg,#fffdf6,#fff5d8);
+    border:3px solid #f2c45c;
+    border-radius:28px;
+    padding:28px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 18px 50px rgba(180,130,20,.16);
+}
+
+.idea-badge{
+    display:inline-block;
+    background:var(--primary);
+    color:white;
+    padding:7px 13px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:800;
+}
+
+.idea-card h2{
+    font-size:35px;
+    color:var(--primary);
+    margin:12px 0 25px;
+}
+
+.idea-row{
+    background:rgba(255,255,255,.75);
+    border-radius:17px;
+    padding:15px;
+    margin-bottom:12px;
+}
+
+.idea-row small{
+    display:block;
+    color:#8b6a21;
+    font-size:11px;
+    font-weight:800;
+    text-transform:uppercase;
+    margin-bottom:5px;
+}
+
+.idea-row strong{
+    color:var(--dark);
+    font-size:17px;
+    line-height:1.5;
+}
+
+/* PROFILE */
+
+.profile-box{
+    max-width:650px;
+    margin:25px auto 0;
+}
+
+.profile-box .form-group{
+    margin-top:15px;
+}
+
+/* SUCCESS */
+
+.success{
+    text-align:center;
+    padding:25px 20px;
+}
+
+.success-icon{
+    width:90px;
+    height:90px;
+    background:#e9f8ef;
+    color:var(--green);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:48px;
+    margin:0 auto 20px;
+}
+
+.success h2{
+    color:var(--dark);
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+.success p{
+    color:#718096;
+    line-height:1.6;
+}
+
+/* CERTIFICATE */
+
+.certificate-area{
+    display:flex;
+    justify-content:center;
+    margin-top:25px;
+}
+
+.certificate{
+    width:100%;
+    max-width:850px;
+    aspect-ratio:1.414 / 1;
+    background:
+        radial-gradient(circle at 10% 10%,rgba(244,165,28,.18),transparent 20%),
+        radial-gradient(circle at 90% 90%,rgba(23,63,122,.15),transparent 25%),
+        #fffdf7;
+    border:12px solid #d9a927;
+    outline:3px solid #173f7a;
+    outline-offset:-21px;
+    padding:55px;
+    text-align:center;
+    position:relative;
+    box-shadow:0 20px 60px rgba(24,49,83,.18);
+}
+
+.certificate-inner{
+    border:2px solid #d9a927;
+    height:100%;
+    padding:30px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+.certificate-logo{
+    width:65px;
+    height:65px;
+    background:var(--primary);
+    color:white;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+    font-weight:900;
+    margin-bottom:12px;
+}
+
+.certificate h1{
+    color:var(--primary);
+    font-family:Georgia,serif;
+    font-size:clamp(26px,5vw,48px);
+    margin-bottom:5px;
+}
+
+.certificate h2{
+    color:#8d6815;
+    font-family:Georgia,serif;
+    font-size:clamp(18px,3vw,28px);
+    margin:12px 0;
+}
+
+.certificate-name{
+    font-family:Georgia,serif;
+    color:#1b3150;
+    font-size:clamp(23px,4vw,40px);
+    font-weight:bold;
+    border-bottom:2px solid #d9a927;
+    padding:0 25px 7px;
+    margin:8px 0;
+}
+
+.certificate p{
+    color:#59697d;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.certificate-footer{
+    display:flex;
+    justify-content:space-between;
+    width:100%;
+    margin-top:25px;
+    font-size:11px;
+    color:#718096;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+    .app{
+        padding:10px;
+    }
+
+    .header{
+        padding:10px 13px;
+        border-radius:17px;
+    }
+
+    .logo{
+        width:40px;
+        height:40px;
+        font-size:18px;
+    }
+
+    .brand-text strong{
+        font-size:14px;
+    }
+
+    .progress-wrap{
+        width:120px;
+    }
+
+    .hero{
+        padding:32px 18px;
+        border-radius:23px;
+    }
+
+    .hero p{
+        font-size:14px;
+    }
+
+    .card{
+        padding:20px 15px;
+        border-radius:20px;
+    }
+
+    .object-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .prompt-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .inspiration-grid{
+        grid-template-columns:1fr;
+    }
+
+    .student-image{
+        height:160px;
+    }
+
+    .certificate{
+        padding:35px 20px;
+        border-width:7px;
+        outline-offset:-14px;
+    }
+
+    .certificate-inner{
+        padding:18px 10px;
+    }
+
+    .certificate-logo{
+        width:45px;
+        height:45px;
+        font-size:18px;
+    }
+
+    .certificate-footer{
+        margin-top:10px;
+    }
+}
+
+@media(max-width:420px){
+
+    .progress-wrap{
+        width:90px;
+    }
+
+    .object{
+        min-height:125px;
+        padding:15px 8px;
+    }
+
+    .object-icon{
+        font-size:38px;
+    }
+
+    .prompt{
+        padding:16px 8px;
+    }
+
+    .btn{
+        width:100%;
+    }
+
+    .record-area{
+        align-items:stretch;
+        flex-direction:column;
+    }
+
+    .record-btn{
+        width:100%;
+    }
+
+    .certificate{
+        aspect-ratio:auto;
+        min-height:520px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <div class="brand">
+
+        <div class="logo">A</div>
+
+        <div class="brand-text">
+            <strong>Allenhouse</strong>
+            <span>Creative Thinking Activity</span>
+        </div>
+
+    </div>
+
+    <div class="progress-wrap">
+
+        <div class="progress-label">
+            <span>Activity</span>
+            <span id="progressText">1 / 4</span>
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     SCREEN 1
+========================= -->
+
+<section class="screen active" id="screen1">
+
+    <div class="hero">
+
+        <span class="eyebrow">
+            💡 IMAGINE • CHANGE • CREATE
+        </span>
+
+        <h1>My What If?</h1>
+
+        <p>
+            Pick something ordinary. What if you could change it?
+            Let's turn an everyday object into a brilliant new idea!
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <button class="top-back" onclick="goBackHome()">
+            ← Back
+        </button>
+
+        <div class="section-title">
+
+            <h2>Choose an everyday object</h2>
+
+            <p>
+                Which one would you like to reinvent?
+            </p>
+
+        </div>
+
+
+        <div class="object-grid">
+
+            <button class="object" data-object="School Bag">
+
+                <div class="object-icon">🎒</div>
+
+                <div class="object-name">
+                    School Bag
+                </div>
+
+            </button>
+
+
+            <button class="object" data-object="Water Bottle">
+
+                <div class="object-icon">🧴</div>
+
+                <div class="object-name">
+                    Water Bottle
+                </div>
+
+            </button>
+
+
+            <button class="object" data-object="Chair">
+
+                <div class="object-icon">🪑</div>
+
+                <div class="object-name">
+                    Chair
+                </div>
+
+            </button>
+
+
+            <button class="object" data-object="Umbrella">
+
+                <div class="object-icon">☂️</div>
+
+                <div class="object-name">
+                    Umbrella
+                </div>
+
+            </button>
+
+
+            <button class="object" data-object="Lunch Box">
+
+                <div class="object-icon">🍱</div>
+
+                <div class="object-name">
+                    Lunch Box
+                </div>
+
+            </button>
+
+
+            <!-- OTHERS -->
+
+            <button class="object" data-object="Others" id="othersObject">
+
+                <div class="object-icon">✨</div>
+
+                <div class="object-name">
+                    Others
+                </div>
+
+            </button>
+
+        </div>
+
+
+        <!-- CUSTOM OBJECT -->
+
+        <div class="other-object-box" id="otherObjectBox">
+
+            <label for="customObject">
+                ✏️ What object would you like to choose?
+            </label>
+
+            <input
+                type="text"
+                id="customObject"
+                placeholder="Example: Pencil, Shoes, Clock..."
+                maxlength="60"
+            >
+
+        </div>
+
+
+        <div class="actions">
+
+            <button
+                class="btn btn-primary"
+                id="objectNext"
+                disabled>
+
+                That's My Object →
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- INSPIRATION -->
+
+    <div class="inspiration">
+
+        <h3>🌟 Get Inspired</h3>
+
+        <div class="inspiration-grid">
+
+            <div class="inspiration-card">
+
+                <div class="student-image">
+                    🎒💡
+                </div>
+
+                <div class="inspiration-card-content">
+
+                    <strong>
+                        Smart School Bag
+                    </strong>
+
+                    <p>
+                        “What if my bag could tell me
+                        which books I need for tomorrow?”
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="inspiration-card">
+
+                <div class="student-image">
+                    💧✨
+                </div>
+
+                <div class="inspiration-card-content">
+
+                    <strong>
+                        Smart Water Bottle
+                    </strong>
+
+                    <p>
+                        “What if my bottle reminded me
+                        when it was time to drink water?”
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="inspiration-card">
+
+                <div class="student-image">
+                    🍱🌱
+                </div>
+
+                <div class="inspiration-card-content">
+
+                    <strong>
+                        Eco Lunch Box
+                    </strong>
+
+                    <p>
+                        “What if my lunch box could help
+                        keep food fresh for longer?”
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SCREEN 2
+========================= -->
+
+<section class="screen" id="screen2">
+
+    <div class="card">
+
+        <button class="top-back" onclick="showScreen(1)">
+            ← Back
+        </button>
+
+
+        <div class="section-title">
+
+            <span
+                class="eyebrow"
+                style="background:#eef3fa;color:#173f7a;">
+
+                YOUR OBJECT
+
+            </span>
+
+            <h2>
+                What if you could change ONE thing?
+            </h2>
+
+            <p id="selectedObjectText">
+                You selected: School Bag
+            </p>
+
+        </div>
+
+
+        <div class="prompt-grid">
+
+            <button
+                class="prompt"
+                data-prompt="Make it smarter">
+
+                <div class="prompt-icon">
+                    🧠
+                </div>
+
+                <strong>
+                    Make it smarter
+                </strong>
+
+            </button>
+
+
+            <button
+                class="prompt"
+                data-prompt="Make it easier to use">
+
+                <div class="prompt-icon">
+                    ✨
+                </div>
+
+                <strong>
+                    Make it easier to use
+                </strong>
+
+            </button>
+
+
+            <button
+                class="prompt"
+                data-prompt="Make it safer">
+
+                <div class="prompt-icon">
+                    🛡️
+                </div>
+
+                <strong>
+                    Make it safer
+                </strong>
+
+            </button>
+
+
+            <button
+                class="prompt"
+                data-prompt="Make it more fun">
+
+                <div class="prompt-icon">
+                    🎨
+                </div>
+
+                <strong>
+                    Make it more fun
+                </strong>
+
+            </button>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="idea">
+                ✏️ Tell us your idea
+            </label>
+
+            <textarea
+                id="idea"
+                placeholder="Example: I would add a small light to my school bag so I can find things easily in the dark..."
+                maxlength="500">
+            </textarea>
+
+            <div
+                style="
+                text-align:right;
+                font-size:11px;
+                color:#8a96a6;
+                margin-top:5px;">
+
+                <span id="charCount">0</span>/500
+
+            </div>
+
+        </div>
+
+
+        <!-- VOICE -->
+
+        <div class="form-group">
+
+            <label>
+                🎙️ Or record your idea
+            </label>
+
+            <div class="record-area">
+
+                <button
+                    class="record-btn"
+                    id="recordBtn">
+
+                    🎙️ Start Recording
+
+                </button>
+
+                <span
+                    class="record-status"
+                    id="recordStatus">
+
+                    Tap to record your idea
+
+                </span>
+
+            </div>
+
+            <audio
+                id="audioPlayback"
+                class="hidden"
+                controls
+                style="width:100%;margin-top:12px;">
+            </audio>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button
+                class="btn btn-light"
+                onclick="showScreen(1)">
+
+                ← Back
+
+            </button>
+
+
+            <button
+                class="btn btn-primary"
+                id="ideaNext">
+
+                Create My Idea Card →
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SCREEN 3
+========================= -->
+
+<section class="screen" id="screen3">
+
+    <div class="card">
+
+        <button class="top-back" onclick="showScreen(2)">
+            ← Back
+        </button>
+
+
+        <div class="section-title">
+
+            <span
+                class="eyebrow"
+                style="background:#fff4d8;color:#8a6413;">
+
+                YOUR CREATIVE IDEA
+
+            </span>
+
+            <h2>
+                Look what you imagined!
+            </h2>
+
+            <p>
+                Here's your very own “My What If?” idea card.
+            </p>
+
+        </div>
+
+
+        <div class="idea-card">
+
+            <span class="idea-badge">
+                ALLENHOUSE • MY WHAT IF?
+            </span>
+
+            <h2>
+                My What If?
+            </h2>
+
+
+            <div class="idea-row">
+
+                <small>
+                    Object I Chose
+                </small>
+
+                <strong id="cardObject">
+                    School Bag
+                </strong>
+
+            </div>
+
+
+            <div class="idea-row">
+
+                <small>
+                    What I Would Change
+                </small>
+
+                <strong id="cardChange">
+                    Make it smarter
+                </strong>
+
+            </div>
+
+
+            <div class="idea-row">
+
+                <small>
+                    What It Would Do Differently
+                </small>
+
+                <strong id="cardIdea">
+                    My amazing new idea...
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-box">
+
+            <div class="form-group">
+
+                <label for="studentName">
+                    👤 Your Name
+                </label>
+
+                <input
+                    id="studentName"
+                    type="text"
+                    placeholder="Enter your name"
+                    maxlength="60">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="studentClass">
+                    🎓 Class / Profile
+                </label>
+
+                <input
+                    id="studentClass"
+                    type="text"
+                    placeholder="Example: Class 5 – A"
+                    maxlength="60">
+
+            </div>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button
+                class="btn btn-light"
+                onclick="showScreen(2)">
+
+                ← Edit Idea
+
+            </button>
+
+
+            <button
+                class="btn btn-gold"
+                id="certificateBtn">
+
+                🏆 Create My Beautiful Certificate
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SCREEN 4
+========================= -->
+
+<section class="screen" id="screen4">
+
+    <div class="card">
+
+        <button class="top-back" onclick="showScreen(3)">
+            ← Back
+        </button>
+
+
+        <div class="success">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <h2>
+                Brilliant Thinking! 🎉
+            </h2>
+
+            <p>
+                You imagined a new possibility and turned
+                an ordinary object into your own creative idea.
+            </p>
+
+        </div>
+
+
+        <div class="certificate-area">
+
+            <div
+                class="certificate"
+                id="certificate">
+
+                <div class="certificate-inner">
+
+                    <div class="certificate-logo">
+                        A
+                    </div>
+
+                    <div
+                        style="
+                        color:#718096;
+                        font-size:11px;
+                        font-weight:bold;
+                        letter-spacing:2px;">
+
+                        ALLENHOUSE
+
+                    </div>
+
+
+                    <h1>
+                        Certificate of Creativity
+                    </h1>
+
+
+                    <p>
+                        This certificate is proudly presented to
+                    </p>
+
+
+                    <div
+                        class="certificate-name"
+                        id="certificateName">
+
+                        Creative Thinker
+
+                    </div>
+
+
+                    <p>
+                        for successfully completing the
+                        <strong>
+                            “My What If?”
+                        </strong>
+                        Creative Thinking Activity
+                    </p>
+
+
+                    <h2 id="certificateIdea">
+                        Creative Innovator
+                    </h2>
+
+
+                    <p id="certificateClass">
+                        Class / Profile
+                    </p>
+
+
+                    <div class="certificate-footer">
+
+                        <span>
+                            ✦ Imagine
+                        </span>
+
+                        <span>
+                            ✦ Question
+                        </span>
+
+                        <span>
+                            ✦ Create
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button
+                class="btn btn-gold"
+                id="downloadCertificate">
+
+                📥 Save Certificate
+
+            </button>
+
+
+            <button
+                class="btn btn-primary"
+                onclick="restartActivity()">
+
+                🔄 Create Another Idea
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+
+
+<script>
+
+/* =================================
+   VARIABLES
+================================= */
+
+let selectedObject = "";
+let selectedPrompt = "";
+
+let mediaRecorder = null;
+let audioChunks = [];
+let audioURL = null;
+
+
+/* =================================
+   SCREEN NAVIGATION
+================================= */
+
+function showScreen(number){
+
+    document.querySelectorAll(".screen")
+    .forEach(screen=>{
+        screen.classList.remove("active");
+    });
+
+    document
+        .getElementById("screen" + number)
+        .classList.add("active");
+
+    updateProgress(number);
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+function updateProgress(number){
+
+    const percentage =
+        (number / 4) * 100;
+
+    document
+        .getElementById("progressBar")
+        .style.width =
+        percentage + "%";
+
+    document
+        .getElementById("progressText")
+        .textContent =
+        number + " / 4";
+}
+
+
+/* =================================
+   BACK BUTTON
+================================= */
+
+function goBackHome(){
+
+    /*
+       Change this if you want the back
+       button to go to another webpage.
+    */
+
+    if(document.referrer){
+
+        history.back();
+
+    }else{
+
+        alert(
+            "You are already at the beginning of the activity."
+        );
+
+    }
+}
+
+
+/* =================================
+   OBJECT SELECTION
+================================= */
+
+const objects =
+    document.querySelectorAll(".object");
+
+const objectNext =
+    document.getElementById("objectNext");
+
+const otherObjectBox =
+    document.getElementById("otherObjectBox");
+
+const customObject =
+    document.getElementById("customObject");
+
+
+objects.forEach(object => {
+
+    object.addEventListener("click", function(){
+
+        objects.forEach(item =>
+            item.classList.remove("selected")
+        );
+
+        this.classList.add("selected");
+
+        selectedObject =
+            this.dataset.object;
+
+
+        /* OTHERS */
+
+        if(selectedObject === "Others"){
+
+            otherObjectBox.classList.add("show");
+
+            customObject.focus();
+
+            objectNext.disabled = true;
+
+        }else{
+
+            otherObjectBox.classList.remove("show");
+
+            customObject.value = "";
+
+            objectNext.disabled = false;
+
+        }
+
+    });
+
+});
+
+
+/* =================================
+   CUSTOM OBJECT
+================================= */
+
+customObject.addEventListener(
+    "input",
+    function(){
+
+        if(
+            selectedObject === "Others" &&
+            this.value.trim().length > 0
+        ){
+
+            objectNext.disabled = false;
+
+        }else{
+
+            objectNext.disabled = true;
+
+        }
+
+    }
+);
+
+
+/* =================================
+   OBJECT NEXT
+================================ */
+
+objectNext.addEventListener(
+    "click",
+    function(){
+
+        if(selectedObject === "Others"){
+
+            const custom =
+                customObject.value.trim();
+
+            if(!custom){
+
+                alert(
+                    "Please enter the name of your object."
+                );
+
+                customObject.focus();
+
+                return;
+
+            }
+
+            selectedObject = custom;
+
+        }
+
+
+        if(!selectedObject){
+
+            alert(
+                "Please select an object first."
+            );
+
+            return;
+
+        }
+
+
+        document
+            .getElementById("selectedObjectText")
+            .textContent =
+            "You selected: " + selectedObject;
+
+
+        showScreen(2);
+
+    }
+);
+
+
+/* =================================
+   PROMPTS
+================================= */
+
+const prompts =
+    document.querySelectorAll(".prompt");
+
+prompts.forEach(prompt => {
+
+    prompt.addEventListener("click", function(){
+
+        prompts.forEach(item =>
+            item.classList.remove("selected")
+        );
+
+        this.classList.add("selected");
+
+        selectedPrompt =
+            this.dataset.prompt;
+
+    });
+
+});
+
+
+/* =================================
+   CHARACTER COUNTER
+================================= */
+
+const ideaBox =
+    document.getElementById("idea");
+
+ideaBox.addEventListener(
+    "input",
+    function(){
+
+        document
+            .getElementById("charCount")
+            .textContent =
+            this.value.length;
+
+    }
+);
+
+
+/* =================================
+   VOICE RECORDING
+================================= */
+
+const recordBtn =
+    document.getElementById("recordBtn");
+
+
+recordBtn.addEventListener(
+    "click",
+    async function(){
+
+        if(
+            mediaRecorder &&
+            mediaRecorder.state === "recording"
+        ){
+
+            mediaRecorder.stop();
+
+            return;
+
+        }
+
+
+        if(
+            !navigator.mediaDevices ||
+            !navigator.mediaDevices.getUserMedia
+        ){
+
+            alert(
+                "Voice recording is not supported by this browser."
+            );
+
+            return;
+
+        }
+
+
+        try{
+
+            const stream =
+                await navigator.mediaDevices
+                .getUserMedia({
+                    audio:true
+                });
+
+
+            audioChunks = [];
+
+
+            mediaRecorder =
+                new MediaRecorder(stream);
+
+
+            mediaRecorder.ondataavailable =
+                event => {
+
+                    if(event.data.size > 0){
+
+                        audioChunks.push(
+                            event.data
+                        );
+
+                    }
+
+                };
+
+
+            mediaRecorder.onstop = () => {
+
+                const blob =
+                    new Blob(
+                        audioChunks,
+                        {
+                            type:"audio/webm"
+                        }
+                    );
+
+
+                audioURL =
+                    URL.createObjectURL(blob);
+
+
+                const audio =
+                    document.getElementById(
+                        "audioPlayback"
+                    );
+
+
+                audio.src = audioURL;
+
+                audio.classList.remove(
+                    "hidden"
+                );
+
+
+                document
+                    .getElementById(
+                        "recordStatus"
+                    )
+                    .textContent =
+                    "Recording ready ✓";
+
+
+                recordBtn.textContent =
+                    "🎙️ Record Again";
+
+
+                stream
+                    .getTracks()
+                    .forEach(track =>
+                        track.stop()
+                    );
+
+            };
+
+
+            mediaRecorder.start();
+
+
+            recordBtn.classList.add(
+                "recording"
+            );
+
+
+            recordBtn.textContent =
+                "⏹ Stop Recording";
+
+
+            document
+                .getElementById(
+                    "recordStatus"
+                )
+                .textContent =
+                "Recording your idea...";
+
+        }
+
+        catch(error){
+
+            alert(
+                "Microphone permission is required to record your idea."
+            );
+
+        }
+
+    }
+);
+
+
+/* =================================
+   CREATE IDEA CARD
+================================= */
+
+document
+    .getElementById("ideaNext")
+    .addEventListener(
+        "click",
+        function(){
+
+            const idea =
+                ideaBox.value.trim();
+
+
+            if(!selectedPrompt){
+
+                alert(
+                    "Please choose one way you would like to change the object."
+                );
+
+                return;
+
+            }
+
+
+            if(!idea){
+
+                alert(
+                    "Please write your idea before continuing."
+                );
+
+                ideaBox.focus();
+
+                return;
+
+            }
+
+
+            document
+                .getElementById("cardObject")
+                .textContent =
+                selectedObject;
+
+
+            document
+                .getElementById("cardChange")
+                .textContent =
+                selectedPrompt;
+
+
+            document
+                .getElementById("cardIdea")
+                .textContent =
+                idea;
+
+
+            showScreen(3);
+
+        }
+    );
+
+
+/* =================================
+   CERTIFICATE
+================================= */
+
+document
+    .getElementById("certificateBtn")
+    .addEventListener(
+        "click",
+        function(){
+
+            const name =
+                document
+                .getElementById(
+                    "studentName"
+                )
+                .value.trim();
+
+
+            const studentClass =
+                document
+                .getElementById(
+                    "studentClass"
+                )
+                .value.trim();
+
+
+            if(!name){
+
+                alert(
+                    "Please enter your name."
+                );
+
+                document
+                    .getElementById(
+                        "studentName"
+                    )
+                    .focus();
+
+                return;
+
+            }
+
+
+            if(!studentClass){
+
+                alert(
+                    "Please enter your class/profile."
+                );
+
+                document
+                    .getElementById(
+                        "studentClass"
+                    )
+                    .focus();
+
+                return;
+
+            }
+
+
+            document
+                .getElementById(
+                    "certificateName"
+                )
+                .textContent =
+                name;
+
+
+            document
+                .getElementById(
+                    "certificateClass"
+                )
+                .textContent =
+                studentClass;
+
+
+            document
+                .getElementById(
+                    "certificateIdea"
+                )
+                .textContent =
+                selectedObject +
+                " • " +
+                selectedPrompt;
+
+
+            showScreen(4);
+
+        }
+    );
+
+
+/* =================================
+   DOWNLOAD CERTIFICATE
+================================= */
+
+document
+    .getElementById(
+        "downloadCertificate"
+    )
+    .addEventListener(
+        "click",
+        function(){
+
+            const canvas =
+                document.createElement(
+                    "canvas"
+                );
+
+
+            const width = 1600;
+            const height = 1131;
+
+
+            canvas.width = width;
+            canvas.height = height;
+
+
+            const ctx =
+                canvas.getContext("2d");
+
+
+            /* Background */
+
+            ctx.fillStyle =
+                "#fffdf7";
+
+            ctx.fillRect(
+                0,
+                0,
+                width,
+                height
+            );
+
+
+            /* Outer Border */
+
+            ctx.strokeStyle =
+                "#d9a927";
+
+            ctx.lineWidth = 25;
+
+            ctx.strokeRect(
+                18,
+                18,
+                width - 36,
+                height - 36
+            );
+
+
+            /* Inner Border */
+
+            ctx.strokeStyle =
+                "#173f7a";
+
+            ctx.lineWidth = 5;
+
+            ctx.strokeRect(
+                48,
+                48,
+                width - 96,
+                height - 96
+            );
+
+
+            /* Logo */
+
+            ctx.fillStyle =
+                "#173f7a";
+
+            ctx.beginPath();
+
+            ctx.arc(
+                width / 2,
+                180,
+                50,
+                0,
+                Math.PI * 2
+            );
+
+            ctx.fill();
+
+
+            ctx.fillStyle =
+                "#ffffff";
+
+            ctx.font =
+                "bold 38px Arial";
+
+            ctx.textAlign =
+                "center";
+
+            ctx.fillText(
+                "A",
+                width / 2,
+                193
+            );
+
+
+            /* Allenhouse */
+
+            ctx.fillStyle =
+                "#718096";
+
+            ctx.font =
+                "bold 20px Arial";
+
+            ctx.fillText(
+                "ALLENHOUSE",
+                width / 2,
+                265
+            );
+
+
+            /* Title */
+
+            ctx.fillStyle =
+                "#173f7a";
+
+            ctx.font =
+                "bold 62px Georgia";
+
+            ctx.fillText(
+                "Certificate of Creativity",
+                width / 2,
+                365
+            );
+
+
+            ctx.fillStyle =
+                "#59697d";
+
+            ctx.font =
+                "24px Arial";
+
+            ctx.fillText(
+                "This certificate is proudly presented to",
+                width / 2,
+                425
+            );
+
+
+            /* Name */
+
+            const name =
+                document
+                .getElementById(
+                    "certificateName"
+                )
+                .textContent;
+
+
+            ctx.fillStyle =
+                "#1b3150";
+
+            ctx.font =
+                "bold 54px Georgia";
+
+            ctx.fillText(
+                name,
+                width / 2,
+                510
+            );
+
+
+            ctx.strokeStyle =
+                "#d9a927";
+
+            ctx.lineWidth = 3;
+
+            ctx.beginPath();
+
+            ctx.moveTo(480,535);
+
+            ctx.lineTo(1120,535);
+
+            ctx.stroke();
+
+
+            /* Activity */
+
+            ctx.fillStyle =
+                "#59697d";
+
+            ctx.font =
+                "23px Arial";
+
+            ctx.fillText(
+                "for successfully completing the",
+                width / 2,
+                590
+            );
+
+
+            ctx.fillStyle =
+                "#173f7a";
+
+            ctx.font =
+                "bold 29px Arial";
+
+            ctx.fillText(
+                "“My What If?” Creative Thinking Activity",
+                width / 2,
+                635
+            );
+
+
+            /* Idea */
+
+            ctx.fillStyle =
+                "#8d6815";
+
+            ctx.font =
+                "bold 28px Georgia";
+
+            ctx.fillText(
+                selectedObject +
+                " • " +
+                selectedPrompt,
+                width / 2,
+                705
+            );
+
+
+            /* Class */
+
+            const studentClass =
+                document
+                .getElementById(
+                    "certificateClass"
+                )
+                .textContent;
+
+
+            ctx.fillStyle =
+                "#59697d";
+
+            ctx.font =
+                "20px Arial";
+
+            ctx.fillText(
+                studentClass,
+                width / 2,
+                755
+            );
+
+
+            /* Footer */
+
+            ctx.fillStyle =
+                "#718096";
+
+            ctx.font =
+                "bold 18px Arial";
+
+            ctx.fillText(
+                "✦ IMAGINE",
+                400,
+                890
+            );
+
+            ctx.fillText(
+                "✦ QUESTION",
+                800,
+                890
+            );
+
+            ctx.fillText(
+                "✦ CREATE",
+                1200,
+                890
+            );
+
+
+            /* Download */
+
+            canvas.toBlob(
+                function(blob){
+
+                    const url =
+                        URL.createObjectURL(
+                            blob
+                        );
+
+
+                    const link =
+                        document.createElement(
+                            "a"
+                        );
+
+
+                    link.href = url;
+
+                    link.download =
+                        "Allenhouse-My-What-If-Certificate.png";
+
+
+                    document.body.appendChild(
+                        link
+                    );
+
+
+                    link.click();
+
+
+                    document.body.removeChild(
+                        link
+                    );
+
+
+                    URL.revokeObjectURL(
+                        url
+                    );
+
+                },
+                "image/png"
+            );
+
+        }
+    );
+
+
+/* =================================
+   RESTART
+================================= */
+
+function restartActivity(){
+
+    selectedObject = "";
+    selectedPrompt = "";
+
+
+    ideaBox.value = "";
+
+    document
+        .getElementById("charCount")
+        .textContent = "0";
+
+
+    document
+        .getElementById("studentName")
+        .value = "";
+
+
+    document
+        .getElementById("studentClass")
+        .value = "";
+
+
+    customObject.value = "";
+
+    otherObjectBox.classList.remove(
+        "show"
+    );
+
+
+    objects.forEach(item =>
+        item.classList.remove(
+            "selected"
+        )
+    );
+
+
+    prompts.forEach(item =>
+        item.classList.remove(
+            "selected"
+        )
+    );
+
+
+    objectNext.disabled = true;
+
+
+    document
+        .getElementById(
+            "audioPlayback"
+        )
+        .classList.add(
+            "hidden"
+        );
+
+
+    recordBtn.classList.remove(
+        "recording"
+    );
+
+
+    recordBtn.textContent =
+        "🎙️ Start Recording";
+
+
+    document
+        .getElementById(
+            "recordStatus"
+        )
+        .textContent =
+        "Tap to record your idea";
+
+
+    showScreen(1);
+
+}
+
+</script>
+
+</body>
+</html>
+```
